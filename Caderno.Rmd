@@ -1,0 +1,75 @@
+---
+title: "Aulas - R4DS II"
+author: "Ricardo Feliz Okamoto"
+date: "08/04/2021"
+output: pdf_document
+---
+
+# Aula 1
+
+## Criando um projeto (passo 1), adicionando um sistema de versionamento (passo 2), e linkando esse sistema de versionamento com o github (passo 3)
+
+```
+usethis::create_project("C://Users/ABJ/Documents/curso-r/atividade1")
+usethis::use_git()
+usethis::use_github()
+```
+
+## Deixe o library() de lado
+Idealmente, a gente nunca deve usar `library()`. No lugar, devemos sempre optar por `::`. Isso (1) garante que a gente nunca sobrescreva funções (por exemplo o filter do RBase e o filter do dplyr), (2) deixa o código mais leve, pois não carrega um pacote inteiro, mas apenas uma função dele e (3) faz com que a gente memorise as funções de cada pacote. 
+
+O pipe em específico deixa de ser prático se a gente usar os quatro pontos. Então a gente pode fazer isso no começo de cada código, ou carregar a library(magrittr). 
+
+``` 
+'%>%' <- magrittr::`%>%`
+```
+
+## Organizando pastas
+
+### .data
+A pasta .data serve para ficar com códigos de uso pronto pra análise. Ela deve conter somente arquivos .rds. 
+
+Pra isso, toda base de dados que a gente criar no R, a gente deve usar a função
+
+```
+readr::write_rds(df, "data/df.rds")
+```
+
+Os arquivos .rds são arquivos DO R, que são muito leves. 
+
+### .data-raw
+
+Na pasta .data-raw, a gente coloca os arquivos brutos. 
+
+Normalmente a gente coloca o script de tratamento dentro do data-raw.
+
+### R/
+
+Na pasta R/ não podemos usar library(). Aqui temos funções bem documentadas. 
+
+### docs/
+
+Podemos fazer uma pasta docs para criar dashboards
+
+### inst/
+
+Qualquer arquivo que sobra, a gente coloca na pasta inst/
+
+## Documentação
+
+Toda função deve ficar em um script sozinho. Nesse script eu crio a função. 
+
+Para documentar esta função, eu devo fazer `#'`. O padrão ouro de toda documentação tem: título, descrição, parâmetros e retorno. 
+
+Vai ficar assim:
+
+```
+#' Título
+#' Descricao
+#'
+#' @params parametro1
+#' @params parametro2
+#'
+#' @return
+#'
+```
